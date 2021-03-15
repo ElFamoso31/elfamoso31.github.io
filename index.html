@@ -1,17 +1,60 @@
 <html>
     <head>
         <title>Projet What's On</title>
+        <script type='text/javascript'>
+            function parserTisseo(data){
+                var results = 'Aucune donnée disponible' ;
+                if ( data ) {
+                var departs = data.departures.departure;
+                results = '<ul>';
+                for(var i=0;i<departs.length;i=i+1){
+                if ( departs[i].dateTime ){
+                results += "<li>"+departs[i].dateTime.replace(/^\d+-\d+-\d+ /,'').replace(/:\d\d$/,'')+'
+                '+departs[i].line.shortName+' '+departs[i].destination[0].name+'<span class="landscape">
+                ('+departs[i].destination[0].cityName+')</span>'+'</li>';
+                }
+                }
+                if ( results == '<ul>' ){ results += 'Aucun départ prévu'; }
+                results += '</ul>';
+                }
+                return results;
+            }
+
+            function tram_aeroconstellation(data){
+                document.getElementById("resultatstramaero").innerHTML = parserTisseo(data);
+            };
+            
+            function tram_palais_de_justice(data){
+            document.getElementById("resultatstrampalais").innerHTML =
+            parserTisseo(data);
+            };
+        </script>
     </head>
     <body>
         <h1>What's On</h1>
         <h3>Météo à Blagnac</h3>
 
+        <script charset="UTF-8" src="http://www.meteofrance.com/mf3-rpcportlet/rest/vignettepartenaire/310690/type/VILLE_FRANCE/size/PORTRAIT_VIGNETTE"
+type="text/javascript"></script>
+
+
         <h3>Tram T1 - Départs direction Aéroconstellation</h3>
+
+        <div id="resultatstramaero">
+        </div>
 
         <h3>Tram T1 - Départs direction Palais de Justice</h3>
 
         <h3>Mon agenda à l'IUT de Blagnac</h3>
 
         <h3>Agenda du groupe 1A</h3>
+
+        <script src="http://algec.iutblagnac.fr/jsonpv1.php?callback=tram_aeroconstellation&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60140"></script>
+        <script src="http://algec.iutblagnac.fr/jsonpv1.php?callback=tram_palais_de_justice&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60141"></script>
+
+        <script type='text/javascript'>
+            tram_aeroconstellation();
+        </script>
+
     </body>
 </html>
