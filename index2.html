@@ -38,7 +38,8 @@ document.getElementById("resultatstrampalais").innerHTML = parserTisseo(data);
 @media all and (orientation:landscape) { .landscape {display: inline;} }
 </style>
 
-</head><body>
+</head>
+<body>
 
 
 <!-- DEBUT page accueil -->
@@ -125,3 +126,9 @@ document.getElementById("resultatstrampalais").innerHTML = parserTisseo(data);
 </div>
 </div>
 <!-- FIN page credits -->
+
+<script src="http://algec.iut-blagnac.fr/jsonpv1.php?callback=tram_aeroconstellation&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60140"></script>
+<script src="http://algec.iut-blagnac.fr/jsonpv1.php?callback=tram_palais_de_justice&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60141"></script>
+
+</body>
+</html>
