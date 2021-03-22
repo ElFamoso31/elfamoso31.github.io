@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>What's On - V2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+//...
+</script>
+<style type='text/css'>
+@media all and (orientation:portrait) { .landscape {display: none;} }
+@media all and (orientation:landscape) { .landscape {display: inline;} }
+</style>
+
+</head><body>
+
+
+<!-- DEBUT page accueil -->
+<div data-role="page" id="accueil" data-title="What's On - V2 - Accueil">
+<div data-role="header" data-add-back-btn="true">
+<h1><span class="landscape">Bienvenue sur </span>What's On</h1>
+<a href="#credits" data-theme="b" class="ui-btn-right">Crédits</a></div>
+<div data-role="content">
+<ul data-role="listview" data-inset="true" id="listeSources">
+    <li><a href="#meteo"><i class="fa fa-umbrella fa-2x"> <span class="landscape">Météo - </span>Blagnac</i></a></li>
+    <li><a href="#tram"><i class="fa fa-subway fa-2x"><span class="landscape"> Tram T1 -</span> Pl. G. Brassens</i></a></li>
+    <li>autre</li>
+</ul>
+</div>
+<div data-role="footer">
+ <h4>Espace pour<span class="landscape"> votre slogan et votre logo !</span> <i class="fa fa-camera-retro fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page accueil -->
+<!-- DEBUT page meteo -->
+<div data-role="page" id="meteo" data-title="What's On - V2 - Météo à Blagnac">
+<div data-role="header" data-add-back-btn="true">
+<h1>Météo à Blagnac</h1>
+</div>
+<div data-role="content">
+<center id="resultatsmeteo">
+<!-- the response do a document.write() : so, cannot be included on pageinit -->
+<script charset='UTF-8' src='http://www.meteofrance.com/mf3-rpc-portlet/rest/vignettepartenaire/310690/type/VILLE_FRANCE/size/PORTRAIT_VIGNETTE' type='text/javascript'></script>
+</center>
+</div>
+<div data-role="footer">
+ <h4>Espace pour<span class="landscape"> votre slogan et votre logo !</span> <i class="fa fa-camera-retro fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page meteo -->
+
+<!-- DEBUT page tram -->
+<div data-role="page" id="tram" data-title="What's On - V0.3 - Tram T1">
+<div data-role="header" data-add-back-btn="true">
+<h1>Tram T1</h1>
+</div>
+<div data-role="content">
+  <ol id="resultatsautrechoix">
+  <li> bientôt ici </li>
+  <li> les données collectées </li>
+  </ol>
+</div>
+<div data-role="footer">
+ <h4>Espace pour<span class="landscape"> votre slogan et votre logo !</span> <i class="fa fa-camera-retro fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page tram -->
+
+<!-- DEBUT page credits -->
+<div data-role="page" id="credits" data-title="What's On - V0.3 - Crédits">
+<div data-role="header" data-add-back-btn="true">
+<h1>Crédits</h1>
+</div>
+<div data-role="content">
+<ul data-role="listview" data-inset="true" id="listeSources" data-theme="a" data-divider-theme="b">
+    <li data-role="list-divider">Sites interrogés</li>
+    <<li>1er</li>
+    <li>2ème</li>
+    <li>3ème</a></li>
+
+</ul>
+<ul data-role="listview" data-inset="true" id="listePropulse" data-theme="a" data-divider-theme="b">
+    <li data-role="list-divider">Propulsé par</li>
+    <li>1er</li>
+    <li>2ème</li>
+    <li>3ème</a></li>
+
+</ul>
+<ul data-role="listview" data-inset="true" id="contacts" data-theme="a" data-divider-theme="b">
+    <li data-role="list-divider">Contacts</li>
+    <li>1er</li>
+    <li>2ème</li>
+    <li>3ème</a></li>
+
+</ul>
+</div>
+<div data-role="footer">
+ <h4>Espace pour<span class="landscape"> votre slogan et votre logo !</span> <i class="fa fa-camera-retro fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page credits -->
