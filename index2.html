@@ -9,7 +9,29 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <script>
-//...
+
+function parserTisseo(data){
+    var results = 'Aucune donnée disponible' ;
+        if ( data ) {
+            var departs = data.departures.departure;
+            results = '<ul>';
+            for(var i=0;i<departs.length;i=i+1){
+              if ( departs[i].dateTime ){
+                results += "<li>"+departs[i].dateTime.replace(/^\d+-\d+-\d+ /,'').replace(/:\d\d$/,'')+' '+departs[i].line.shortName+' '+departs[i].destination[0].name+'<span class="landscape"> ('+departs[i].destination[0].cityName+')</span>'+'</li>';
+              }
+            }
+            if ( results == '<ul>' ){ results += 'Aucun départ prévu'; }
+            results += '</ul>';
+        }
+    return results;
+}
+function tram_aeroconstellation(data){
+document.getElementById("resultatstramaero").innerHTML = parserTisseo(data);
+};
+function tram_palais_de_justice(data){
+document.getElementById("resultatstrampalais").innerHTML = parserTisseo(data);
+};
+
 </script>
 <style type='text/css'>
 @media all and (orientation:portrait) { .landscape {display: none;} }
