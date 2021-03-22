@@ -1,83 +1,154 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Projet What's On</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript">
-      const parserTisseo = (data) => {
-        let results = "Aucune donnée disponible";
-        if (data) {
-          const departs = data.departures.departure;
-          results = "<ul>";
-          for (let i = 0; i < departs.length; i = i + 1) {
-            if (departs[i].dateTime) {
-              results +=
-                "<li>" +
-                departs[i].dateTime
-                  .replace(/^\d+-\d+-\d+ /, "")
-                  .replace(/:\d\d$/, "") +
-                "" +
-                departs[i].line.shortName +
-                " " +
-                departs[i].destination[0].name +
-                '<span class="landscape">(' +
-                departs[i].destination[0].cityName +
-                ")</span>" +
-                "</li>";
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>What's On - V2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+
+function parserTisseo(data){
+    var results = 'Aucune donnée disponible' ;
+        if ( data ) {
+            var departs = data.departures.departure;
+            results = '<ul>';
+            for(var i=0;i<departs.length;i=i+1){
+              if ( departs[i].dateTime ){
+                results += "<li>"+departs[i].dateTime.replace(/^\d+-\d+-\d+ /,'').replace(/:\d\d$/,'')+' '+departs[i].line.shortName+' '+departs[i].destination[0].name+'<span class="landscape"> ('+departs[i].destination[0].cityName+')</span>'+'</li>';
+              }
             }
-          }
-          if (results == "<ul>") {
-            results += "Aucun départ prévu";
-          }
-          results += "</ul>";
+            if ( results == '<ul>' ){ results += 'Aucun départ prévu'; }
+            results += '</ul>';
         }
-        return results;
-      };
+    return results;
+}
+function tram_aeroconstellation(data){
+document.getElementById("resultatstramaero").innerHTML = parserTisseo(data);
+};
+function tram_palais_de_justice(data){
+document.getElementById("resultatstrampalais").innerHTML = parserTisseo(data);
+};
 
-      const tram_aeroconstellation = (data) => {
-        document.getElementById("resultatstramaero").innerHTML = parserTisseo(
-          data
-        );
-      };
+</script>
+<style type='text/css'>
+@media all and (orientation:portrait) { .landscape {display: none;} }
+@media all and (orientation:landscape) { .landscape {display: inline;} }
+</style>
 
-      const tram_palais_de_justice = (data) => {
-        document.getElementById("resultatstrampalais").innerHTML = parserTisseo(
-          data
-        );
-      };
-    </script>
-  </head>
-  <body>
-    <h1>What's On</h1>
-    <h3>Météo à Blagnac</h3>
+</head>
+<body>
 
-    <script
-      charset="UTF-8"
-      src="https://meteofrance.com/mf3-rpc-portlet/rest/vignettepartenaire/310690/type/VILLE_FRANCE/size/PORTRAIT_VIGNETTE"
-      type="text/javascript"
-    ></script>
 
-    <h3>Tram T1 - Départs direction Aéroconstellation</h3>
+<!-- DEBUT page accueil -->
+<div data-role="page" id="accueil" data-title="What's On - V2 - Accueil">
+<div data-role="header" data-add-back-btn="true">
+<h1><span class="landscape">Bienvenue sur </span>What's On</h1>
+<a href="#credits" data-theme="b" class="ui-btn-right">Crédits</a></div>
+<div data-role="content">
+<ul data-role="listview" data-inset="true" id="listeSources">
+    <li><a href="#meteo"><i class="fa fa-umbrella fa-2x"> <span class="landscape">Météo - </span>Blagnac</i></a></li>
+    <li><a href="#tram"><i class="fa fa-subway fa-2x"><span class="landscape"> Tram T1 -</span> Pl. G. Brassens</i></a></li>
+    <li><a href="#agenda"><i class="fa fa-calendar fa-2x"><span class="landscape"> Mon agenda -</span> IUT de Blagnac</i></a></li>
+</ul>
+</div>
+<div data-role="footer">
+ <h4>Toujours à l'heure<span class="landscape"> pour s'instruire !</span> <i class="fa fa-book fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page accueil -->
+<!-- DEBUT page meteo -->
+<div data-role="page" id="meteo" data-title="What's On - V2 - Météo à Blagnac">
+<div data-role="header" data-add-back-btn="true">
+<h1>Météo à Blagnac</h1>
+</div>
+<div data-role="content">
+<center id="resultatsmeteo">
+<!-- the response do a document.write() : so, cannot be included on pageinit -->
+<script charset='UTF-8' src='http://www.meteofrance.com/mf3-rpc-portlet/rest/vignettepartenaire/310690/type/VILLE_FRANCE/size/PORTRAIT_VIGNETTE' type='text/javascript'></script>
+</center>
+</div>
+<div data-role="footer">
+    <h4>Toujours à l'heure<span class="landscape"> pour s'instruire !</span> <i class="fa fa-book fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page meteo -->
 
+<!-- DEBUT page tram -->
+<div data-role="page" id="tram" data-title="What's On - V0.3 - Tram T1">
+<div data-role="header" data-add-back-btn="true">
+<h1>Tram T1</h1>
+</div>
+<div data-role="content">
     <div id="resultatstramaero"></div>
-
-    <h3>Tram T1 - Départs direction Palais de Justice</h3>
-
     <div id="resultatstrampalais"></div>
+</div>
+<div data-role="footer">
+    <h4>Toujours à l'heure<span class="landscape"> pour s'instruire !</span> <i class="fa fa-book fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page tram -->
 
-    <h3>Mon agenda à l'IUT de Blagnac</h3>
+<!-- DEBUT page agenda -->
+<div data-role="page" id="agenda" data-title="What's On - V0.3 - Agenda">
+    <div data-role="header" data-add-back-btn="true">
+    <h1>Mon agenda</h1>
+    </div>
+    <div data-role="content">
+        <iframe
+        src="https://calendar.google.com/calendar/embed?src=5nm3ks2gthqrh8jfr13dqifkvhsk3ka5%40import.calendar.google.com&ctz=Europe%2FParis"
+        style="border: 0"
+        width="100%"
+        height="800"
+        frameborder="0"
+        scrolling="no"
+      ></iframe>
+    </div>
+    <div data-role="footer">
+        <h4>Toujours à l'heure<span class="landscape"> pour s'instruire !</span> <i class="fa fa-book fa-2x"></i></h4>
+    </div>
+    </div>
+    <!-- FIN page agenda -->
 
-    <h3>Agenda du groupe 1A</h3>
+<!-- DEBUT page credits -->
+<div data-role="page" id="credits" data-title="What's On - V0.3 - Crédits">
+<div data-role="header" data-add-back-btn="true">
+<h1>Crédits</h1>
+</div>
+<div data-role="content">
+<ul data-role="listview" data-inset="true" id="listeSources" data-theme="a" data-divider-theme="b">
+    <li data-role="list-divider">Sites interrogés</li>
+    <li><a href='http://www.meteofrance.com/' target='_blank' ref='noreferrer'>http://www.meteofrance.com/</a></li>
+    <li><a href='http://www.tisseo.fr/' target='_blank' ref='noreferrer'>http://www.tisseo.fr/</a></li>
+    <li><a href='https://flopedt.iut-blagnac.fr/fr/edt/INFO/' target='_blank' rel='noreferrer'>https://flopedt.iut-blagnac.fr/fr/edt/INFO/</a></li>
 
-    <iframe
-      src="https://calendar.google.com/calendar/embed?src=5nm3ks2gthqrh8jfr13dqifkvhsk3ka5%40import.calendar.google.com&ctz=Europe%2FParis"
-      style="border: 0"
-      width="800"
-      height="600"
-      frameborder="0"
-      scrolling="no"
-    ></iframe>
+</ul>
+<ul data-role="listview" data-inset="true" id="listePropulse" data-theme="a" data-divider-theme="b">
+    <li data-role="list-divider">Propulsé par</li>
+    <li><a href='http://fortawesome.github.io/Font-Awesome/' target='_blank' rel='noreferrer'>http://fortawesome.github.io/Font-Awesome/</a></li>
+    <li><a href='https://jquerymobile.com/' target='_blank' rel='noreferrer'>https://jquerymobile.com/</a></li>
+    <li><a href='http://flopedt.org/' target='_blank' rel='noreferrer'>http://flopedt.org/</a></li>
+    <li><a href='https://calendar.google.com/' target='_blank' rel='noreferrer'>https://calendar.google.com/</a></li>
 
-    <script src="http://algec.iut-blagnac.fr/jsonpv1.php?callback=tram_aeroconstellation&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60140"></script>
-    <script src="http://algec.iut-blagnac.fr/jsonpv1.php?callback=tram_palais_de_justice&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60141"></script>
-  </body>
+</ul>
+<ul data-role="listview" data-inset="true" id="contacts" data-theme="a" data-divider-theme="b">
+    <li data-role="list-divider">Contacts</li>
+    <li>Philippe GACONNET et Esther PENDARIES</li>
+    <li>Université Toulouse 2 - IUT de Blaganc <br> Département INFORMATIQUE</li>
+    <li>DUT INFO/Semestre 2 - Module Gestion de projet M2204</a></li>
+
+</ul>
+</div>
+<div data-role="footer">
+    <h4>Toujours à l'heure<span class="landscape"> pour s'instruire !</span> <i class="fa fa-book fa-2x"></i></h4>
+</div>
+</div>
+<!-- FIN page credits -->
+
+<script src="http://algec.iut-blagnac.fr/jsonpv1.php?callback=tram_aeroconstellation&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60140"></script>
+<script src="http://algec.iut-blagnac.fr/jsonpv1.php?callback=tram_palais_de_justice&url=http://api.tisseo.fr/v1/stops_schedules.json?operatorCode=60141"></script>
+
+</body>
 </html>
